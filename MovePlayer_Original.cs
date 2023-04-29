@@ -13,7 +13,6 @@ public class MovePlayer : MonoBehaviour {
 
 	private Rigidbody rb;
 	private int count;
-	private int notes;
 
 	//************* Need to setup this server dictionary...
 	Dictionary<string, ServerLog> servers = new Dictionary<string, ServerLog> ();
@@ -32,7 +31,6 @@ public class MovePlayer : MonoBehaviour {
 
         rb = GetComponent<Rigidbody> ();
 		count = 0;
-		notes = 4;
 		setCountText ();
 	}
 	
@@ -77,12 +75,30 @@ public class MovePlayer : MonoBehaviour {
 		{
 			other.gameObject.SetActive (false);
 			count = count + 1;
-			notes = notes + 1;
 			setCountText ();
 
 
             // change the tempo of the sequence based on how many obejcts we have picked up.
-            OSCHandler.Instance.SendMessageToClient("pd", "/unity/addnote", notes);
+            if(count < 2)
+            {
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/tempo", 500);
+            }
+            if (count < 4)
+            {
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/tempo", 400);
+            }
+            else if(count < 6)
+            {
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/tempo", 300);
+            }
+            else if (count < 8)
+            {
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/tempo", 150);
+            }
+            else
+            {
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/tempo", 0);
+            }
 
         }
         else if(other.gameObject.CompareTag("Wall"))
