@@ -80,6 +80,16 @@ public class MovePlayer : MonoBehaviour {
 			notes = notes + 1;
 			setCountText ();
 
+			// play pickup sound effect based on color
+			if (other.gameObject.name == "Red") {
+				Debug.Log("Red");
+			}
+			if (other.gameObject.name == "Orange") {
+				Debug.Log("Orange");
+			}
+			if (other.gameObject.name == "Yellow") {
+				Debug.Log("Yellow");
+			}
 
             // change the tempo of the sequence based on how many obejcts we have picked up.
             OSCHandler.Instance.SendMessageToClient("pd", "/unity/addnote", notes);
