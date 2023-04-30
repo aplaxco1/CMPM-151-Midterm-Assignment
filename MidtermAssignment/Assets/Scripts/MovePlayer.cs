@@ -82,13 +82,13 @@ public class MovePlayer : MonoBehaviour {
 
 			// play pickup sound effect based on color
 			if (other.gameObject.name == "Red") {
-				Debug.Log("Red");
+				OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 0);
 			}
 			if (other.gameObject.name == "Orange") {
-				Debug.Log("Orange");
+				OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 1);
 			}
 			if (other.gameObject.name == "Yellow") {
-				Debug.Log("Yellow");
+				OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 2);
 			}
 
             // change the tempo of the sequence based on how many obejcts we have picked up.
