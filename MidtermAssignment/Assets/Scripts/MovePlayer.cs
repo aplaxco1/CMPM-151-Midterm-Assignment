@@ -48,6 +48,17 @@ public class MovePlayer : MonoBehaviour {
 
 		rb.AddForce (movement*speed);
 
+		float magnitude = rb.velocity.magnitude;
+		if (magnitude < 1) {
+			OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 0);
+		} else if (magnitude < 4) {
+			OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 1);
+		} else if (magnitude < 8) {
+			OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 2);
+		} else {
+			OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 3);
+		}
+
 		//************* Routine for receiving the OSC...
 		OSCHandler.Instance.UpdateLogs();
 		Dictionary<string, ServerLog> servers = new Dictionary<string, ServerLog>();
