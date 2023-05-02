@@ -35,7 +35,6 @@ public class MovePlayer : MonoBehaviour {
 		notes = 4;
 		setCountText ();
 	}
-	
 
 	void FixedUpdate()
 	{
@@ -48,7 +47,7 @@ public class MovePlayer : MonoBehaviour {
 
 		rb.AddForce (movement*speed);
 
-		float magnitude = rb.velocity.magnitude;
+		float magnitude = rb.velocity.magnitude.floor();
 		if (magnitude < 1) {
 			OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 0);
 		} else if (magnitude < 4) {
