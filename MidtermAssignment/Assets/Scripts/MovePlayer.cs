@@ -9,6 +9,7 @@ using UnityOSC;
 public class MovePlayer : MonoBehaviour {
 
 	public float speed;
+	public int lastSpeed;
 	public Text countText;
 
 	private Rigidbody rb;
@@ -35,7 +36,6 @@ public class MovePlayer : MonoBehaviour {
 		notes = 4;
 		setCountText ();
 	}
-	
 
 	void FixedUpdate()
 	{
@@ -47,6 +47,21 @@ public class MovePlayer : MonoBehaviour {
 		Vector3 movement = new Vector3 (moveHorizontal, 0, moveVertical);
 
 		rb.AddForce (movement*speed);
+
+		float magnitude = rb.velocity.magnitude;
+		int currentSpeed = (int)Mathf.Floor(magnitude);
+		if (currentSpeed != lastSpeed) {
+			if (magnitude < 1) {
+				OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 0);
+				lastSpeed = currentSpeed;
+			} else if (magnitude < 13) {
+				OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", currentSpeed);
+				lastSpeed = currentSpeed;
+			} else {
+				OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 13);
+				lastSpeed = 10;
+			}
+		}
 
 		//************* Routine for receiving the OSC...
 		OSCHandler.Instance.UpdateLogs();
