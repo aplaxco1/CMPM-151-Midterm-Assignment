@@ -1,4 +1,4 @@
-#N canvas 1839 86 1920 997 10;
+#N canvas 1902 48 1920 997 10;
 #X obj 1066 447 *~;
 #X obj 1057 546 dac~;
 #X obj 1163 337 vline~;
@@ -196,7 +196,7 @@
 #X msg 2482 211 140;
 #X floatatom 2054 286 5 0 0 0 - - - 0;
 #X obj 2128 320 osc~;
-#N canvas 1043 249 760 425 hitReverb 0;
+#N canvas 2610 257 760 420 hitReverb 0;
 #X obj 162 49 inlet~;
 #X obj 144 364 outlet~;
 #X floatatom 444 156 0 0 120 0 - - - 0;
@@ -216,6 +216,8 @@
 #X text 103 264 "dry" signal;
 #X floatatom 411 59 5 0 0 0 - - - 0;
 #X obj 250 87 expr 1 - $f1;
+#X obj 447 22 loadbang;
+#X msg 411 21 0.2;
 #X connect 0 0 13 0;
 #X connect 0 0 10 0;
 #X connect 2 0 10 2;
@@ -233,6 +235,8 @@
 #X connect 17 0 12 0;
 #X connect 17 0 18 0;
 #X connect 18 0 14 0;
+#X connect 19 0 20 0;
+#X connect 20 0 17 0;
 #X restore 1550 385 pd hitReverb;
 #X obj 2115 596 dac~;
 #X obj 2123 532 *~;
@@ -247,7 +251,7 @@
 #X msg 2277 584 0.02;
 #X floatatom 2070 341 5 0 0 0 - - - 0;
 #X text 2049 22 Creates drone with movement of the player according to the speed. Frequencies get higher as the player gets faster.;
-#N canvas 264 248 760 425 rollReverb 0;
+#N canvas 2418 313 760 425 rollReverb 0;
 #X obj 162 49 inlet~;
 #X obj 144 364 outlet~;
 #X floatatom 444 156 0 0 120 0 - - - 0;
@@ -267,6 +271,8 @@
 #X text 103 264 "dry" signal;
 #X floatatom 410 59 5 0 0 0 - - - 0;
 #X obj 250 87 expr 1 - $f1;
+#X obj 445 27 loadbang;
+#X msg 410 27 0.1;
 #X connect 0 0 13 0;
 #X connect 0 0 10 0;
 #X connect 2 0 10 2;
@@ -284,6 +290,8 @@
 #X connect 17 0 12 0;
 #X connect 17 0 18 0;
 #X connect 18 0 14 0;
+#X connect 19 0 20 0;
+#X connect 20 0 17 0;
 #X restore 2123 565 pd rollReverb;
 #X text 2048 638 Two voices are used to give the sound depth which in turn leads to a more satisfying feedback to maintaining movement.;
 #X msg 776 669 0.4;
