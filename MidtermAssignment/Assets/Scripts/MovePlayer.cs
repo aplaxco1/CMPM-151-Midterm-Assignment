@@ -9,6 +9,7 @@ using UnityOSC;
 public class MovePlayer : MonoBehaviour {
 
 	public float speed;
+	public int lastSpeed;
 	public Text countText;
 
 	private Rigidbody rb;
@@ -47,15 +48,19 @@ public class MovePlayer : MonoBehaviour {
 
 		rb.AddForce (movement*speed);
 
-		float magnitude = rb.velocity.magnitude.floor();
-		if (magnitude < 1) {
-			OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 0);
-		} else if (magnitude < 4) {
-			OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 1);
-		} else if (magnitude < 8) {
-			OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 2);
-		} else {
-			OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 3);
+		float magnitude = rb.velocity.magnitude;
+		int currentSpeed = (int)Mathf.Floor(magnitude);
+		if (currentSpeed != lastSpeed) {
+			if (magnitude < 1) {
+				OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 0);
+				lastSpeed = currentSpeed;
+			} else if (magnitude < 10) {
+				OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", currentSpeed);
+				lastSpeed = currentSpeed;
+			} else {
+				OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 10);
+				lastSpeed = 10;
+			}
 		}
 
 		//************* Routine for receiving the OSC...
