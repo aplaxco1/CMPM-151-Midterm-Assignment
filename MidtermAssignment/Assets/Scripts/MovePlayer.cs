@@ -54,11 +54,11 @@ public class MovePlayer : MonoBehaviour {
 			if (magnitude < 1) {
 				OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 0);
 				lastSpeed = currentSpeed;
-			} else if (magnitude < 10) {
+			} else if (magnitude < 13) {
 				OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", currentSpeed);
 				lastSpeed = currentSpeed;
 			} else {
-				OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 10);
+				OSCHandler.Instance.SendMessageToClient("pd", "/unity/speed", 13);
 				lastSpeed = 10;
 			}
 		}
